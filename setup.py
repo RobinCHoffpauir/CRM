@@ -30,7 +30,7 @@ HOT_COLD = StringVar()
 #============================METHODS=====================================
 
 def Database():
-    conn = sqlite3.connect("CRMdatabase.db")
+    conn = sqlite3.connect("customers.db")
     cursor = conn.cursor()
     cursor.execute("CREATE TABLE IF NOT EXISTS `member` (mem_id INTEGER NOT NULL  PRIMARY KEY AUTOINCREMENT, firstname TEXT, lastname TEXT, gender TEXT, company TEXT, priority TEXT, contact TEXT, hot_cold TEXT)")
     cursor.execute("SELECT * FROM `member` ORDER BY `lastname` ASC")
@@ -45,7 +45,7 @@ def SubmitData():
         result = tkmessagebox.showwarning('', 'Please Complete The Required Field', icon="warning")
     else:
         tree.delete(*tree.get_children())
-        conn = sqlite3.connect("CRMdatabase.db")
+        conn = sqlite3.connect("customers.db")
         cursor = conn.cursor()
         cursor.execute("INSERT INTO `member` (firstname, lastname, gender, company, priority, contact) VALUES(?, ?, ?, ?, ?, ?)", (str(FIRSTNAME.get()), str(LASTNAME.get()), str(GENDER.get()), str(COMPANY.get()), str(PRIORITY.get()), str(CONTACT.get())))
         conn.commit()
@@ -67,7 +67,7 @@ def UpdateData():
        result = tkmessagebox.showwarning('', 'Please Complete The Required Field', icon="warning")
     else:
         tree.delete(*tree.get_children())
-        conn = sqlite3.connect("CRMdatabase.db")
+        conn = sqlite3.connect("customers.db")
         cursor = conn.cursor()
         cursor.execute("UPDATE `member` SET `firstname` = ?, `lastname` = ?, 'gender' = ?, `company` = ?,  `priority` = ?, `contact` = ? WHERE `mem_id` = ?", (str(FIRSTNAME.get()), str(LASTNAME.get()), str(GENDER.get()), str(COMPANY.get()), str(PRIORITY.get()), str(CONTACT.get()), str(HOT_COLD.get()), int(mem_id)))
         conn.commit()
@@ -176,7 +176,7 @@ def DeleteData():
             contents =(tree.item(curItem))
             selecteditem = contents['values']
             tree.delete(curItem)
-            conn = sqlite3.connect("CRMdatabase.db")
+            conn = sqlite3.connect("customers.db")
             cursor = conn.cursor()
             cursor.execute("DELETE FROM `member` WHERE `mem_id` = %d" % selecteditem[0])
             conn.commit()
@@ -269,7 +269,7 @@ MidRight.pack(side=RIGHT, pady=10)
 TableMargin = Frame(root, width=500)
 TableMargin.pack(side=TOP)
 #============================LABELS======================================
-lbl_title = Label(Top, text="Robin C. Hoffpauir's Sales Funnel", font=('arial', 16), width=500,bg="black")
+lbl_title = Label(Top, text="Gulf Breeze Pest Control Customer Database", font=('arial', 16), width=500,bg="black")
 lbl_title.pack(fill=X)
 
 #============================ENTRY=======================================
